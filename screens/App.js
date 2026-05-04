@@ -1,16 +1,69 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import Topo from '../Components/topo';
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from '@expo-google-fonts/roboto';
+
+// import Topo from '../Components/topo';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={Style.container}>
       <Text style = {Style.textpresent}>Bem Vindo ao</Text>
       <Image style = {Style.image} source={require('../assets/senailogo.png')}/>
 
-        <Pressable>
+        <View style = {Style.boxContainer1}>
+          <Pressable style={({ pressed }) => [
+            Style.button,
+            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
+          ]}>
           
+          <Text style = {Style.buttonText}>
+            Nossos Cursos
+          </Text>
+
         </Pressable>
+
+        <Pressable style={({ pressed }) => [
+            Style.button,
+            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
+          ]}>
+          <Text style = {Style.buttonText}>
+            Instituições
+          </Text>
+        </Pressable>
+        </View>
+
+        <View style = {Style.boxContainer1}>
+          <Pressable style={({ pressed }) => [
+            Style.button,
+            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
+          ]}>
+          <Text style = {Style.buttonText}>
+            Contato
+          </Text>
+        </Pressable>
+
+        <Pressable style={({ pressed }) => [
+            Style.button,
+            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
+          ]}>
+          <Text style = {Style.buttonText}>
+            Saiba Mais
+          </Text>
+        </Pressable>
+        </View>
 
       <View style = {Style.actions}>
         <Text style = {Style.textName}>SENAI CURSOS</Text>
@@ -33,37 +86,69 @@ const Style = StyleSheet.create({
     backgroundColor: '#D7D7D7',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: 'Roboto',
   },
 
   textpresent:{
     paddingVertical: 5,
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
     backgroundColor: '#D7D7D7',
-    width: '30%',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#c7c6c6',
-    fontWeight: 'bold',
-    bottom: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+    fontFamily: 'Roboto_700Bold',
     },
     
     image :{
     width: '40%',
     height: 50,
-    marginBottom: 300,
+    marginBottom: 150,
+    resizeMode: 'contain',
+  },
+
+  boxContainer1: {
+    flexDirection: 'row',
+    gap: 50,
+    marginBottom: 50,
+    bottom: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  button: {
+  borderRadius: 30,
+  paddingVertical: 10,
+  paddingHorizontal: 20,
+  minWidth: 120,
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.1,
+  shadowRadius: 4,
+  elevation: 5,
+  },
+
+  buttonText: {
+    color: '#000000',
+    fontSize: 16,
+    fontFamily: 'Roboto_400Regular',
+    fontWeight: '500',
   },
 
   textName : {
     color: '#000000',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Roboto_700Bold',
     bottom: 40,
   },
 
   text :{
     color: '#000000',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto_400Regular',
     bottom: 20,
   },
 
@@ -93,7 +178,7 @@ const Style = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#c7c6c6',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto_700Bold',
   },
 
 });
