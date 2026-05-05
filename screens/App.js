@@ -8,6 +8,10 @@ import {
 
 // import Topo from '../Components/topo';
 
+function linkExterno() {
+  alert('Abrir link externo');
+}
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
@@ -27,8 +31,7 @@ export default function App() {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
-          
+          ]} onPress={linkExterno}>
           <Text style = {Style.buttonText}>
             Nossos Cursos
           </Text>
@@ -109,7 +112,7 @@ const Style = StyleSheet.create({
 
   boxContainer1: {
     flexDirection: 'row',
-    gap: 50,
+    gap: 30,
     marginBottom: 50,
     bottom: 50,
     alignItems: 'center',
@@ -120,7 +123,7 @@ const Style = StyleSheet.create({
   borderRadius: 30,
   paddingVertical: 10,
   paddingHorizontal: 20,
-  minWidth: 120,
+  width: 150,
   alignItems: 'center',
   shadowColor: '#000',
   shadowOffset: {
