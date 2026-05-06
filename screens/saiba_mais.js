@@ -8,8 +8,12 @@ import {
 
 // import Topo from '../Components/topo';
 
+
+
+// Função que faz retornar uma infotmação
+
 function linkExterno() {
-  alert('Abrir link externo');
+  alert('Ainda em desenvolvimento, aguarde por mais novidades!');
 }
 
 export default function SaibaMais({ navigation }) {
@@ -31,9 +35,9 @@ export default function SaibaMais({ navigation }) {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={linkExterno}>
+          ]}>
           <Text style = {Style.buttonText}>
-            Nossos 
+            Nossos Cursos
           </Text>
 
         </Pressable>
@@ -52,7 +56,7 @@ export default function SaibaMais({ navigation }) {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
+          ]}onPress={linkExterno}>
           <Text style = {Style.buttonText}>
             Contato
           </Text>
@@ -61,14 +65,14 @@ export default function SaibaMais({ navigation }) {
         <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
+          ]} onPress={() => navigation.navigate('saiba_mais')}>
           <Text style = {Style.buttonText}>
             Saiba Mais
           </Text>
         </Pressable>
         </View>
         
-        <View>
+        <View style = {Style.boxContainer1}>
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
@@ -117,33 +121,33 @@ const Style = StyleSheet.create({
     image :{
     width: '40%',
     height: 50,
-    marginBottom: 150,
+    marginBottom: 130,
     resizeMode: 'contain',
   },
 
   boxContainer1: {
     flexDirection: 'row',
     gap: 30,
-    marginBottom: 50,
-    bottom: 50,
+    marginBottom: 35,
+    bottom: 80,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   button: {
-  borderRadius: 30,
-  paddingVertical: 10,
-  paddingHorizontal: 20,
-  width: 150,
-  alignItems: 'center',
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.1,
-  shadowRadius: 4,
-  elevation: 5,
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    width: 150,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
   },
 
   buttonText: {
@@ -176,7 +180,8 @@ const Style = StyleSheet.create({
   actions: {
     paddingVertical: 50,
     paddingHorizontal: 24,
-    paddingBottom: 20,
+    paddingBottom: 10,
+    bottom: 30,
     backgroundColor: '#FFFFFF',
     width: '80%',
     borderRadius: 32,
