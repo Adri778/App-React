@@ -1,0 +1,18 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Home from './screens/home';
+import SaibaMais from './screens/saiba_mais';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Home' component = {Home} />
+        <Stack.Screen name='saiba_mais' component = {SaibaMais} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}

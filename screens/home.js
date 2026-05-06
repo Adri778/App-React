@@ -8,11 +8,15 @@ import {
 
 // import Topo from '../Components/topo';
 
+
+/*
+Função que faz retornar uma infotmação
+
 function linkExterno() {
   alert('Abrir link externo');
 }
-
-export default function App() {
+*/
+export default function Home({ navigation }) {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -31,7 +35,7 @@ export default function App() {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={linkExterno}>
+          ]} onPress={() => navigation.navigate('saiba_mais')}>
           <Text style = {Style.buttonText}>
             Nossos Cursos
           </Text>
@@ -66,6 +70,17 @@ export default function App() {
             Saiba Mais
           </Text>
         </Pressable>
+        </View>
+        
+        <View>
+          <Pressable style={({ pressed }) => [
+            Style.button,
+            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
+          ]}>
+            <Text>
+              Calendário
+            </Text>
+          </Pressable>
         </View>
 
       <View style = {Style.actions}>
@@ -136,6 +151,13 @@ const Style = StyleSheet.create({
   },
 
   buttonText: {
+    color: '#000000',
+    fontSize: 16,
+    fontFamily: 'Roboto_400Regular',
+    fontWeight: '500',
+  },
+
+  buttonText2: {
     color: '#000000',
     fontSize: 16,
     fontFamily: 'Roboto_400Regular',
