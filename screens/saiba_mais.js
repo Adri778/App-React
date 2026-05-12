@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import Retorno from '../Components/seta_retorno';
 import {
   useFonts,
   Roboto_400Regular,
@@ -27,74 +28,21 @@ export default function SaibaMais({ navigation }) {
   }
 
   return (
-    <View style={Style.container}>
+    <>
+      <View style={Style.container}>
+
       <Text style = {Style.textpresent}>Bem Vindo ao</Text>
+      <Retorno />
       <Image style = {Style.image} source={require('../assets/senailogo.png')}/>
 
-        <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
-          <Text style = {Style.buttonText}>
-            Nossos Cursos
-          </Text>
-
-        </Pressable>
-
-        <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
-          <Text style = {Style.buttonText}>
-            Instituições
-          </Text>
-        </Pressable>
-        </View>
-
-        <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}onPress={linkExterno}>
-          <Text style = {Style.buttonText}>
-            Contato
-          </Text>
-        </Pressable>
-
-        <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={() => navigation.navigate('saiba_mais')}>
-          <Text style = {Style.buttonText}>
-            Saiba Mais
-          </Text>
-        </Pressable>
-        </View>
-        
-        <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
-            <Text>
-              Calendário
-            </Text>
-          </Pressable>
-        </View>
-
       <View style = {Style.actions}>
-        <Text style = {Style.textName}>SENAI CURSOS</Text>
-        <Text style = {Style.text}>O Senai é uma instituição que oferece cursos profissionalizantes e técnicos. </Text>
-
-        <View style = {Style.boxcenter}>
-          <Text style = {Style.contName}>Desenvolvimento de Sistemas</Text>
-          <Text style = {Style.contName}>Adriel Ferreira da Hora</Text>
-          <Text style = {Style.contName}>75 907645723</Text>
-        </View>
+        <Text style = {Style.textName}>QUEM SOMOS?</Text>
+        <Text style = {Style.text}>O Serviço Nacional de Aprendizagem Industrial (SENAI) define-se como uma instituição privada de interesse público, vinculada à Confederação Nacional da Indústria (CNI), cujo propósito central é atuar como o principal motor de qualificação profissional e inovação tecnológica do setor produtivo brasileiro. Criado em 1942, em um momento de transição econômica do país, o SENAI consolidou-se como o maior complexo de educação profissional da América Latina. </Text>
+        <Text style = {Style.text}>A instituição é uma educadora por excelência. Diferente de modelos de ensino puramente teóricos, sua identidade está fundamentada na metodologia do "aprender fazendo". Ao longo de décadas, o SENAI tornou-se o principal responsável por inserir trabalhadores qualificados no mercado, oferecendo desde a aprendizagem industrial básica até pós-graduações tecnológicas, sempre alinhadas às demandas reais das fábricas.</Text>
 
       </View>
     </View>
+    </>
   );
 }
 
@@ -107,22 +55,27 @@ const Style = StyleSheet.create({
   },
 
   textpresent:{
+    position: 'absolute',
+    top: 70,
+    left: 105,
+    fontSize: 15,
     paddingVertical: 5,
     paddingHorizontal: 15,
     backgroundColor: '#D7D7D7',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#c7c6c6',
-    marginBottom: 10,
     textAlign: 'center',
     fontFamily: 'Roboto_700Bold',
     },
     
     image :{
-    width: '40%',
+    position: 'absolute',
+    top: 60,
+    width: '25%',
     height: 50,
-    marginBottom: 130,
-    resizeMode: 'contain',
+    right: 20,
+    resizeMode: 'contain',  
   },
 
   boxContainer1: {
@@ -169,24 +122,26 @@ const Style = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Roboto_700Bold',
     bottom: 40,
-  },
-
-  text :{
-    color: '#000000',
-    fontFamily: 'Roboto_400Regular',
-    bottom: 20,
+    textAlign: 'center',
   },
 
   actions: {
     paddingVertical: 50,
     paddingHorizontal: 24,
     paddingBottom: 10,
-    bottom: 30,
+    top: 60,
     backgroundColor: '#FFFFFF',
     width: '80%',
     borderRadius: 32,
     borderWidth: 1,
     borderColor:'#FFFFFF',
+  },
+
+  text :{
+    color: '#000000',
+    fontFamily: 'Roboto_400Regular',
+    bottom: 20,
+    textAlign: 'justify',
   },
 
   boxcenter: {

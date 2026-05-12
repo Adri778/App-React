@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
+          ]} onPress={() => navigation.navigate('cursos')}>
           <Text style = {Style.buttonText}>
             Nossos Cursos
           </Text>
@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
         <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
+          ]} onPress={() => navigation.navigate('instituto')}>
           <Text style = {Style.buttonText}>
             Instituições
           </Text>
@@ -56,9 +56,9 @@ export default function Home({ navigation }) {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}onPress={linkExterno}>
+          ]} onPress={() => navigation.navigate('seja_docente')}>
           <Text style = {Style.buttonText}>
-            Contato
+            Seja Docente
           </Text>
         </Pressable>
 
@@ -76,7 +76,7 @@ export default function Home({ navigation }) {
           <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]}>
+          ]} onPress = {() => navigation.navigate('calendario')}>
             <Text>
               Calendário
             </Text>
