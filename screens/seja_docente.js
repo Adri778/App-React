@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable, Linking } from 'react-native';
 import Retorno from '../Components/seta_retorno';
+import * as WebBrowser from 'expo-web-browser';
 import {
   useFonts,
   Roboto_400Regular,
@@ -9,7 +10,15 @@ import {
 
 // import Topo from '../Components/topo';
 
+// Função web browser
 
+async function login() {
+  await WebBrowser.openBrowserAsync('https://sejadocente.senaibahia.com.br/login');
+}
+
+async function video() {
+  await WebBrowser.openBrowserAsync('https://www.senaibahia.com.br/wp-content/uploads/2026/03/1.-Realizar-cadastro-e-login-2.mp4');
+}
 
 // Função que faz retornar uma infotmação
 
@@ -53,7 +62,7 @@ export default function Seja_docente({ navigation }) {
         <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={linkExterno}>
+          ]} onPress={video}>
             <Text style = {Style.buttonText}>
                 Clique aqui!
             </Text>
@@ -66,7 +75,7 @@ export default function Seja_docente({ navigation }) {
         <Pressable style={({ pressed }) => [
             Style.button,
             { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={linkInscrever}>
+          ]} onPress={login}>
             <Text style = {Style.buttonText}>
                 Inscreva-se
             </Text>

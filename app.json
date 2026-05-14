@@ -1,24 +1,24 @@
 {
   "expo": {
-    "name": "meuApp",
-    "slug": "meuApp",
+    "name": "Licativo",
+    "slug": "AppLitivo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/senaiLogo_bc.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#D9D9D9"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/senailogo.png",
+        "backgroundColor": "#D9D9D9"
       },
       "edgeToEdgeEnabled": true
     },
@@ -26,7 +26,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-web-browser"
     ]
   }
 }

@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import Botao from '../Components/botao';
 import {
   useFonts,
   Roboto_400Regular,
@@ -32,55 +33,39 @@ export default function Home({ navigation }) {
       <Image style = {Style.image} source={require('../assets/senailogo.png')}/>
 
         <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={() => navigation.navigate('cursos')}>
-          <Text style = {Style.buttonText}>
-            Nossos Cursos
-          </Text>
+          
 
-        </Pressable>
+        <Botao 
+          tittle = 'Nossos Cursos'
+          onPress = {() => navigation.navigate('cursos')}
+        />
 
-        <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={() => navigation.navigate('instituto')}>
-          <Text style = {Style.buttonText}>
-            Instituições
-          </Text>
-        </Pressable>
+        <Botao 
+          tittle = 'Instituição'
+          onPress = {() => navigation.navigate('instituto')}
+        />
         </View>
 
         <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={() => navigation.navigate('seja_docente')}>
-          <Text style = {Style.buttonText}>
-            Seja Docente
-          </Text>
-        </Pressable>
+          
+        <Botao 
+          tittle = 'Seja Docente'
+          onPress = {() => navigation.navigate('seja_docente')}
+        />
 
-        <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress={() => navigation.navigate('saiba_mais')}>
-          <Text style = {Style.buttonText}>
-            Saiba Mais
-          </Text>
-        </Pressable>
+        <Botao 
+          tittle = 'Saiba Mais'
+          onPress = {() => navigation.navigate('saiba_mais')}
+        />
+
         </View>
         
         <View style = {Style.boxContainer1}>
-          <Pressable style={({ pressed }) => [
-            Style.button,
-            { backgroundColor: pressed ? '#E8E8E8' : 'white' }
-          ]} onPress = {() => navigation.navigate('calendario')}>
-            <Text>
-              Calendário
-            </Text>
-          </Pressable>
+
+          <Botao 
+          tittle = 'Calendário'
+          onPress = {() => navigation.navigate('calendario')}
+        />
         </View>
 
       <View style = {Style.actions}>
@@ -132,36 +117,6 @@ const Style = StyleSheet.create({
     bottom: 80,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  button: {
-    borderRadius: 30,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    width: 150,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
-  buttonText: {
-    color: '#000000',
-    fontSize: 16,
-    fontFamily: 'Roboto_400Regular',
-    fontWeight: '500',
-  },
-
-  buttonText2: {
-    color: '#000000',
-    fontSize: 16,
-    fontFamily: 'Roboto_400Regular',
-    fontWeight: '500',
   },
 
   textName : {
