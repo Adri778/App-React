@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Botao from '../Components/botao';
+import Footer from '../Components/footer';
 import {
   useFonts,
   Roboto_400Regular,
@@ -79,6 +80,7 @@ export default function Home({ navigation }) {
         </View>
 
       </View>
+      <Footer />
     </View>
   );
 }
@@ -99,6 +101,7 @@ const Style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7c6c6',
     marginBottom: 10,
+    top: 8,
     textAlign: 'center',
     fontFamily: 'Roboto_700Bold',
     },
@@ -107,6 +110,7 @@ const Style = StyleSheet.create({
     width: '40%',
     height: 50,
     marginBottom: 130,
+    top: 5,
     resizeMode: 'contain',
   },
 
