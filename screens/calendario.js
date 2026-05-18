@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import Retorno from '../Components/seta_retorno';
+import Footer from '../Components/footer';
 import {
   useFonts,
   Roboto_400Regular,
@@ -40,7 +41,9 @@ export default function Calendario({ navigation }) {
       <View style = {Style.calendario}>
         <Calendar />
       </View>
-      
+      <View style={Style.footer}>
+        <Footer />
+      </View>
     </View>
     </>
   );
@@ -195,6 +198,10 @@ const Style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7c6c6',
     fontFamily: 'Roboto_700Bold',
+  },
+
+  footer:{
+    top: 170,
   },
 
 });

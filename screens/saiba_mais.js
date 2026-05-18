@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Retorno from '../Components/seta_retorno';
+import Footer from '../Components/footer';
 import {
   useFonts,
   Roboto_400Regular,
@@ -40,6 +41,9 @@ export default function SaibaMais({ navigation }) {
         <Text style = {Style.text}>O Serviço Nacional de Aprendizagem Industrial (SENAI) define-se como uma instituição privada de interesse público, vinculada à Confederação Nacional da Indústria (CNI), cujo propósito central é atuar como o principal motor de qualificação profissional e inovação tecnológica do setor produtivo brasileiro. Criado em 1942, em um momento de transição econômica do país, o SENAI consolidou-se como o maior complexo de educação profissional da América Latina. </Text>
         <Text style = {Style.text}>A instituição é uma educadora por excelência. Diferente de modelos de ensino puramente teóricos, sua identidade está fundamentada na metodologia do "aprender fazendo". Ao longo de décadas, o SENAI tornou-se o principal responsável por inserir trabalhadores qualificados no mercado, oferecendo desde a aprendizagem industrial básica até pós-graduações tecnológicas, sempre alinhadas às demandas reais das fábricas.</Text>
 
+      </View>
+      <View style={Style.footer}>
+        <Footer />
       </View>
     </View>
     </>
@@ -160,6 +164,10 @@ const Style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7c6c6',
     fontFamily: 'Roboto_700Bold',
+  },
+
+  footer:{
+    top: 80,
   },
 
 });

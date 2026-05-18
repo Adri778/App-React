@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Retorno from '../Components/seta_retorno';
+import Footer from '../Components/footer';
 import {
   useFonts,
   Roboto_400Regular,
@@ -68,6 +69,9 @@ export default function Instituicao({ navigation }) {
         </View>
 
       </View>
+    </View>
+    <View style={Style.footer}>
+      <Footer />
     </View>
     </>
   );
@@ -176,7 +180,7 @@ const Style = StyleSheet.create({
     borderRadius: 32,
     borderWidth: 1,
     borderColor:'#FFFFFF',
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   text :{
@@ -188,7 +192,6 @@ const Style = StyleSheet.create({
 
   boxcenter: {
     alignItems: 'center',
-    
     alignSelf: 'center',
     
   },
@@ -202,6 +205,10 @@ const Style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7c6c6',
     fontFamily: 'Roboto_700Bold',
+  },
+
+  footer:{
+    bottom: 30,
   },
 
 });

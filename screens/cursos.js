@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Retorno from '../Components/seta_retorno';
+import Footer from '../Components/footer';
 import {
   useFonts,
   Roboto_400Regular,
@@ -64,7 +65,9 @@ export default function Cursos({ navigation }) {
     
       </View>
 
-      
+      <View style={Style.footer}>
+        <Footer />
+      </View>
     </View>
     </>
   );
@@ -219,6 +222,10 @@ const Style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7c6c6',
     fontFamily: 'Roboto_700Bold',
+  },
+
+  footer:{
+    top: 90,
   },
 
 });
