@@ -15,6 +15,7 @@ function lerEntrada(corpo) {
     image: corpo.image,
     originalPrice: corpo.originalPrice,
     isPromo: corpo.isPromo,
+
     freeShipping: corpo.freeShipping,
     affiliateLink: corpo.affiliateLink,
   };
