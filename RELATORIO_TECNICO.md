@@ -5,9 +5,11 @@
 O **Bom Preço** é um sistema dividido em duas frentes:
 
 - **Site (e-commerce):** onde os clientes navegam e realizam compras.
-- **Aplicativo mobile (este repositório):** painel de controle para o gestor da loja — gerencia produtos, clientes, estoque e visualiza vendas geradas pelo site.
+- **Aplicativo mobile (este repositório):** painel de controle para o gestor da loja — gerencia produtos, estoque e visualiza vendas geradas pelo site.
 
 O app **não é voltado ao cliente final**. É uma ferramenta interna de gestão (backoffice mobile).
+
+> Os produtos cadastrados no app carregam, além dos campos de estoque, os **campos de vitrine** consumidos pelo site (imagem, preço original, promoção, frete grátis e link de afiliado). Assim, o mesmo produto serve ao controle interno e à exibição na loja.
 
 ---
 
@@ -73,15 +75,13 @@ App-React/
 │   ├── Aplicativo.js         # Configuração do navegador e rotas
 │   ├── Splash.js             # Tela de carregamento inicial (2,5 s)
 │   ├── Inicio.js             # Dashboard — resumo e menu de navegação
-│   ├── Produtos.js           # Listagem e cadastro de produtos
-│   ├── Clientes.js           # Listagem e cadastro de clientes
+│   ├── Produtos.js           # Listagem e cadastro de produtos (estoque + vitrine)
 │   ├── Estoque.js            # Visão de estoque com alertas de quantidade baixa
 │   └── Vendas.js             # Listagem de pedidos gerados pelo site
 │
 ├── servicos/                 # Camada de integração com a API
 │   ├── api.js                # BASE_URL do backend
 │   ├── produtoServico.js     # Funções fetch para /produtos
-│   ├── clienteServico.js     # Funções fetch para /clientes
 │   └── vendaServico.js       # Funções fetch para /vendas
 │
 ├── assets/                   # Imagens estáticas
@@ -97,15 +97,12 @@ App-React/
     │   └── db.js             # Conexão MySQL (mysql2)
     ├── models/               # Consultas SQL (acesso ao banco)
     │   ├── Produto.js
-    │   ├── Cliente.js
     │   └── Venda.js
     ├── controllers/          # Lógica de requisição/resposta HTTP
     │   ├── ProdutoController.js
-    │   ├── ClienteController.js
     │   └── VendaController.js
     └── routes/               # Definição dos endpoints REST
         ├── produtoRoutes.js
-        ├── clienteRoutes.js
         └── vendaRoutes.js
 ```
 
@@ -116,29 +113,26 @@ App-React/
 ### Diagrama de Tabelas
 
 ```
-produtos                    clientes
-─────────────────           ─────────────────
-id (PK)                     id (PK)
-nome                        nome
-preco                       email
-descricao                   telefone
-quantidade                  endereco
-estoque_minimo              criado_em
+produtos                          vendas
+──────────────────                ─────────────────
+id (PK)                           id (PK)
+nome                              total
+preco                             status
+descricao                        criado_em
+quantidade
+estoque_minimo
 categoria
-
-vendas                      itens_venda
-─────────────────           ─────────────────
-id (PK)                     id (PK)
-cliente_id (FK)             venda_id (FK)
-total                       produto_id (FK)
-status                      quantidade
-criado_em                   preco_unitario
+image            ┐
+originalPrice    │  campos de
+isPromo          │  vitrine
+freeShipping     │  (consumidos
+affiliateLink    ┘  pelo site)
 ```
 
-### Relacionamentos
-- `vendas.cliente_id` → `clientes.id`
-- `itens_venda.venda_id` → `vendas.id`
-- `itens_venda.produto_id` → `produtos.id`
+- **produtos** reúne os campos de **controle/estoque** (nome, preço, quantidade, estoque mínimo, categoria, descrição) e os campos de **vitrine** consumidos pelo site (image, originalPrice, isPromo, freeShipping, affiliateLink).
+- **vendas** registra os pedidos gerados pelo site (total, status, data).
+
+> **Observação:** esta versão não possui a entidade **Clientes**. O detalhamento de itens por venda (`itens_venda`) e qualquer vínculo de venda com cliente ficam a cargo da integração com o site/banco (responsabilidade da etapa de integração).
 
 ---
 
@@ -152,25 +146,19 @@ criado_em                   preco_unitario
 | POST | `/produtos` | Cadastra novo produto |
 | GET | `/produtos/estoque-baixo` | Lista produtos com `quantidade <= estoque_minimo` |
 
-### Clientes — `/clientes`
-| Método | Rota | Ação |
-|---|---|---|
-| GET | `/clientes` | Lista todos os clientes |
-| GET | `/clientes/:id` | Busca um cliente pelo ID |
-| POST | `/clientes` | Cadastra novo cliente |
-
 ### Vendas — `/vendas`
 | Método | Rota | Ação |
 |---|---|---|
-| GET | `/vendas` | Lista todas as vendas (com nome do cliente via JOIN) |
+| GET | `/vendas` | Lista todas as vendas |
 | GET | `/vendas/:id` | Busca uma venda pelo ID |
+| PATCH | `/vendas/:id/status` | Atualiza o status da venda (valida valores permitidos) |
 
 ### Dashboard — `/resumo`
 | Método | Rota | Resposta |
 |---|---|---|
-| GET | `/resumo` | `{ produtos, clientes, estoqueBaixo }` |
+| GET | `/resumo` | `{ produtos, estoqueBaixo }` |
 
-> A API adota o padrão **CR (Create + Read)** — operações de Update e Delete são gerenciadas pelo site ou por acesso direto ao banco.
+> A API adota o padrão **CR (Create + Read)** para produtos. A única operação de escrita adicional é o `PATCH /vendas/:id/status`. Update/Delete amplos ficam a cargo do site ou do acesso direto ao banco.
 
 ---
 
@@ -185,7 +173,7 @@ Requisição HTTP
   Route (define o endpoint e delega)
       │
       ▼
-  Controller (valida a resposta, trata erros HTTP)
+  Controller (valida a entrada, trata erros HTTP, monta a resposta)
       │
       ▼
   Model (executa a query SQL no banco)
@@ -199,6 +187,9 @@ Cada camada tem responsabilidade única:
 - **Controller:** recebe `req`/`res`, chama o model, devolve JSON.
 - **Model:** contém apenas as queries SQL, sem lógica HTTP.
 
+### Validação de entrada (whitelist)
+Os controllers de criação montam o objeto a ser gravado **copiando apenas os campos conhecidos** da requisição (função `lerEntrada`). Campos extras enviados pelo cliente são ignorados, evitando *mass assignment* (gravação de colunas não previstas).
+
 ---
 
 ## 8. Fluxo de Navegação do App
@@ -209,9 +200,7 @@ Splash (2,5 s)
      ▼
   Início (Dashboard)
      │
-     ├──► Produtos   → Lista → Modal "Novo Produto"
-     │
-     ├──► Clientes   → Lista → Modal "Novo Cliente"
+     ├──► Produtos   → Lista → botão "+" → Modal "Novo Produto" (estoque + vitrine)
      │
      ├──► Estoque    → Lista ordenada por quantidade (alertas visuais)
      │
@@ -233,7 +222,9 @@ O Dashboard usa `useFocusEffect` para atualizar os cards de resumo sempre que o 
 | Fetch nativo (não axios) | Sem dependência extra; suficiente para CR simples |
 | Modal bottom-sheet (não tela separada) | Menos navegação; experiência mais fluida para formulários curtos |
 | `useFocusEffect` no Dashboard | Dados do resumo se atualizam ao voltar de qualquer tela |
-| CR apenas (sem Update/Delete) | Operações destrutivas ficam no site ou no banco, reduzindo risco no app mobile |
+| Produto com campos de estoque **e** de vitrine | Um único produto serve ao controle interno e à exibição no site |
+| Whitelist de entrada nos controllers | Evita *mass assignment*; só campos conhecidos são gravados |
+| CR + `PATCH` de status | Operações destrutivas amplas ficam no site/banco, reduzindo risco no app mobile |
 
 ---
 
@@ -248,7 +239,7 @@ node server.js
 ```
 
 ### Banco de dados
-Execute o script SQL fornecido separadamente para criar as tabelas no MySQL.
+Crie o banco `bom_preco` e as tabelas no MySQL. A tabela `produtos` precisa conter, além dos campos de estoque, as colunas de vitrine (`image`, `originalPrice`, `isPromo`, `freeShipping`, `affiliateLink`).
 
 ### App (Frontend)
 ```bash
@@ -259,3 +250,13 @@ npx expo start
 > **Atenção:** Em [servicos/api.js](servicos/api.js), ajuste `BASE_URL`:
 > - Emulador Android: `http://10.0.2.2:3000`
 > - Dispositivo físico: `http://<IP-da-máquina>:3000`
+
+---
+
+## 11. Pendências para Integração (site + banco)
+
+Itens a cargo da etapa de integração:
+
+1. **Banco `bom_preco`** com as tabelas `produtos` (estoque + vitrine) e `vendas`.
+2. **Endereço da API** em `servicos/api.js` apontando para o servidor real.
+3. **Alinhamento de nomes** entre app e site nos campos principais: o app usa `nome`/`preco`/`categoria`; o site espera `name`/`price`/`category`. Os campos de vitrine já coincidem.
