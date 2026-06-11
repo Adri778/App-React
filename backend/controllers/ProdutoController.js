@@ -1,5 +1,25 @@
 const Produto = require('../models/Produto');
 
+// Aceita só os campos conhecidos do produto, ignorando qualquer extra
+// que o cliente envie (evita mass assignment).
+function lerEntrada(corpo) {
+  return {
+    // Campos de controle/estoque (admin)
+    nome: corpo.nome,
+    preco: corpo.preco,
+    quantidade: corpo.quantidade,
+    estoque_minimo: corpo.estoque_minimo,
+    categoria: corpo.categoria,
+    descricao: corpo.descricao,
+    // Campos da vitrine (consumidos pelo site)
+    image: corpo.image,
+    originalPrice: corpo.originalPrice,
+    isPromo: corpo.isPromo,
+    freeShipping: corpo.freeShipping,
+    affiliateLink: corpo.affiliateLink,
+  };
+}
+
 const ProdutoController = {
   listar: (req, res) => {
     Produto.listar((erro, resultado) => {
@@ -17,9 +37,10 @@ const ProdutoController = {
   },
 
   criar: (req, res) => {
-    Produto.criar(req.body, (erro, resultado) => {
+    const dados = lerEntrada(req.body);
+    Produto.criar(dados, (erro, resultado) => {
       if (erro) return res.status(500).json({ erro: 'Erro ao criar produto' });
-      res.status(201).json({ id: resultado.insertId, ...req.body });
+      res.status(201).json({ id: resultado.insertId, ...dados });
     });
   },
 

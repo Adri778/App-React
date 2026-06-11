@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from './Splash';
 import Inicio from './Inicio';
 import Produtos from './Produtos';
-import Clientes from './Clientes';
 import Estoque from './Estoque';
 import Vendas from './Vendas';
 
@@ -16,7 +15,6 @@ export default function Aplicativo() {
         <Pilha.Screen name="Splash" component={Splash} />
         <Pilha.Screen name="Inicio" component={Inicio} />
         <Pilha.Screen name="Produtos" component={Produtos} />
-        <Pilha.Screen name="Clientes" component={Clientes} />
         <Pilha.Screen name="Estoque" component={Estoque} />
         <Pilha.Screen name="Vendas" component={Vendas} />
       </Pilha.Navigator>

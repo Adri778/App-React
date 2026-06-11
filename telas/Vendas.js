@@ -51,7 +51,6 @@ export default function Vendas({ navigation }) {
                   <Text style={estilos.badgeTexto}>{item.status}</Text>
                 </View>
               </View>
-              <Text style={estilos.cartaoCliente}>{item.cliente_nome || 'Cliente não identificado'}</Text>
               <View style={estilos.cartaoRodape}>
                 <Text style={estilos.cartaoData}>{formataData(item.criado_em)}</Text>
                 <Text style={estilos.cartaoTotal}>R$ {parseFloat(item.total).toFixed(2)}</Text>
@@ -122,11 +121,6 @@ const estilos = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 11,
     fontFamily: 'Roboto_700Bold',
-  },
-  cartaoCliente: {
-    fontSize: 15,
-    fontFamily: 'Roboto_700Bold',
-    color: '#222',
   },
   cartaoRodape: {
     flexDirection: 'row',

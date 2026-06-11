@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, FlatList,
-  Modal, TextInput, Alert, ScrollView,
+  Modal, TextInput, Alert, ScrollView, Switch,
 } from 'react-native';
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { listarProdutos, criarProduto } from '../servicos/produtoServico';
 
-const FORM_VAZIO = { nome: '', preco: '', quantidade: '', estoque_minimo: '5', categoria: '', descricao: '' };
+const FORM_VAZIO = {
+  nome: '', preco: '', quantidade: '', estoque_minimo: '5', categoria: '', descricao: '',
+  // Campos da vitrine (consumidos pelo site)
+  image: '', originalPrice: '', isPromo: false, freeShipping: false, affiliateLink: '',
+};
 
 export default function Produtos({ navigation }) {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -35,6 +39,12 @@ export default function Produtos({ navigation }) {
       quantidade: parseInt(form.quantidade) || 0,
       estoque_minimo: parseInt(form.estoque_minimo) || 5,
       categoria: form.categoria.trim(),
+      // Campos da vitrine (consumidos pelo site)
+      image: form.image.trim(),
+      originalPrice: form.originalPrice ? parseFloat(form.originalPrice) : null,
+      isPromo: form.isPromo,
+      freeShipping: form.freeShipping,
+      affiliateLink: form.affiliateLink.trim(),
     };
     try {
       await criarProduto(dados);
@@ -56,9 +66,7 @@ export default function Produtos({ navigation }) {
           <Text style={estilos.voltar}>← Voltar</Text>
         </TouchableOpacity>
         <Text style={estilos.titulo}>Produtos</Text>
-        <TouchableOpacity style={estilos.botaoNovo} onPress={() => setModal(true)}>
-          <Text style={estilos.botaoNovoTexto}>+ Novo</Text>
-        </TouchableOpacity>
+        <View style={{ width: 60 }} />
       </View>
 
       <FlatList
@@ -84,6 +92,10 @@ export default function Produtos({ navigation }) {
         }
       />
 
+      <TouchableOpacity style={estilos.botaoAdicionar} onPress={() => setModal(true)}>
+        <Text style={estilos.botaoAdicionarTexto}>+</Text>
+      </TouchableOpacity>
+
       <Modal visible={modal} animationType="slide" transparent>
         <View style={estilos.overlay}>
           <ScrollView style={estilos.modalBox} keyboardShouldPersistTaps="handled">
@@ -106,6 +118,26 @@ export default function Produtos({ navigation }) {
 
             <Text style={estilos.label}>Descrição</Text>
             <TextInput style={[estilos.input, estilos.inputArea]} value={form.descricao} onChangeText={v => campo('descricao', v)} placeholder="Descrição do produto" multiline numberOfLines={3} />
+
+            <Text style={estilos.secaoVitrine}>Vitrine (site)</Text>
+
+            <Text style={estilos.label}>Link da imagem</Text>
+            <TextInput style={estilos.input} value={form.image} onChangeText={v => campo('image', v)} placeholder="https://..." autoCapitalize="none" />
+
+            <Text style={estilos.label}>Preço original</Text>
+            <TextInput style={estilos.input} value={form.originalPrice} onChangeText={v => campo('originalPrice', v)} placeholder="0.00 (opcional)" keyboardType="decimal-pad" />
+
+            <Text style={estilos.label}>Link de afiliado</Text>
+            <TextInput style={estilos.input} value={form.affiliateLink} onChangeText={v => campo('affiliateLink', v)} placeholder="https://..." autoCapitalize="none" />
+
+            <View style={estilos.linhaSwitch}>
+              <Text style={estilos.label}>Em promoção</Text>
+              <Switch value={form.isPromo} onValueChange={v => campo('isPromo', v)} />
+            </View>
+            <View style={estilos.linhaSwitch}>
+              <Text style={estilos.label}>Frete grátis</Text>
+              <Switch value={form.freeShipping} onValueChange={v => campo('freeShipping', v)} />
+            </View>
 
             <TouchableOpacity style={estilos.botaoSalvar} onPress={salvar}>
               <Text style={estilos.botaoSalvarTexto}>Salvar</Text>
@@ -145,16 +177,23 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Roboto_700Bold',
   },
-  botaoNovo: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+  botaoAdicionar: {
+    position: 'absolute',
+    right: 24,
+    bottom: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#2E8B4A',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
   },
-  botaoNovoTexto: {
-    color: '#2E8B4A',
+  botaoAdicionarTexto: {
+    color: '#FFFFFF',
+    fontSize: 30,
     fontFamily: 'Roboto_700Bold',
-    fontSize: 13,
+    lineHeight: 34,
   },
   lista: {
     padding: 16,
@@ -235,6 +274,21 @@ const estilos = StyleSheet.create({
   inputArea: {
     height: 80,
     textAlignVertical: 'top',
+  },
+  secaoVitrine: {
+    fontSize: 13,
+    fontFamily: 'Roboto_700Bold',
+    color: '#1B5E35',
+    marginTop: 20,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#EEE',
+  },
+  linhaSwitch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 8,
   },
   botaoSalvar: {
     backgroundColor: '#2E8B4A',

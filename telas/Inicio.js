@@ -6,7 +6,7 @@ import BASE_URL from '../servicos/api';
 
 export default function Inicio({ navigation }) {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
-  const [resumo, setResumo] = useState({ produtos: '-', clientes: '-', estoqueBaixo: '-' });
+  const [resumo, setResumo] = useState({ produtos: '-', estoqueBaixo: '-' });
 
   useFocusEffect(
     useCallback(() => {
@@ -37,10 +37,6 @@ export default function Inicio({ navigation }) {
             <Text style={estilos.resumoNumero}>{resumo.produtos}</Text>
             <Text style={estilos.resumoLabel}>Produtos</Text>
           </View>
-          <View style={[estilos.cartaoResumo, { borderLeftColor: '#F5A623' }]}>
-            <Text style={estilos.resumoNumero}>{resumo.clientes}</Text>
-            <Text style={estilos.resumoLabel}>Clientes</Text>
-          </View>
           <View style={[estilos.cartaoResumo, { borderLeftColor: '#E53935' }]}>
             <Text style={estilos.resumoNumero}>{resumo.estoqueBaixo}</Text>
             <Text style={estilos.resumoLabel}>Estoque Baixo</Text>
@@ -55,11 +51,6 @@ export default function Inicio({ navigation }) {
           <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('Produtos')}>
             <Text style={estilos.botaoIcone}>📦</Text>
             <Text style={estilos.botaoTexto}>Produtos</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('Clientes')}>
-            <Text style={estilos.botaoIcone}>👥</Text>
-            <Text style={estilos.botaoTexto}>Clientes</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('Estoque')}>
