@@ -1,8 +1,21 @@
+import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { useFocusEffect } from '@react-navigation/native';
+import BASE_URL from '../servicos/api';
 
 export default function Inicio({ navigation }) {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  const [resumo, setResumo] = useState({ produtos: '-', clientes: '-', estoqueBaixo: '-' });
+
+  useFocusEffect(
+    useCallback(() => {
+      fetch(`${BASE_URL}/resumo`)
+        .then(r => r.json())
+        .then(setResumo)
+        .catch(() => {});
+    }, [])
+  );
 
   if (!fontsLoaded) return null;
 
@@ -21,15 +34,15 @@ export default function Inicio({ navigation }) {
         <Text style={estilos.secaoTitulo}>Resumo</Text>
         <View style={estilos.filhaResumo}>
           <View style={[estilos.cartaoResumo, { borderLeftColor: '#2E8B4A' }]}>
-            <Text style={estilos.resumoNumero}></Text>
+            <Text style={estilos.resumoNumero}>{resumo.produtos}</Text>
             <Text style={estilos.resumoLabel}>Produtos</Text>
           </View>
           <View style={[estilos.cartaoResumo, { borderLeftColor: '#F5A623' }]}>
-            <Text style={estilos.resumoNumero}></Text>
+            <Text style={estilos.resumoNumero}>{resumo.clientes}</Text>
             <Text style={estilos.resumoLabel}>Clientes</Text>
           </View>
           <View style={[estilos.cartaoResumo, { borderLeftColor: '#E53935' }]}>
-            <Text style={estilos.resumoNumero}></Text>
+            <Text style={estilos.resumoNumero}>{resumo.estoqueBaixo}</Text>
             <Text style={estilos.resumoLabel}>Estoque Baixo</Text>
           </View>
         </View>
