@@ -3,7 +3,6 @@ const cors = require('cors');
 const Produto = require('./models/Produto');
 
 const produtoRoutes = require('./routes/produtoRoutes');
-const vendaRoutes = require('./routes/vendaRoutes');
 
 const app = express();
 
@@ -11,7 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/produtos', produtoRoutes);
-app.use('/vendas', vendaRoutes);
 
 app.get('/resumo', (req, res) => {
   Produto.contagem((e1, rProdutos) => {

@@ -58,12 +58,8 @@ export default function Inicio({ navigation }) {
             <Text style={estilos.botaoTexto}>Estoque</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('Vendas')}>
-            <Text style={estilos.botaoIcone}>🛒</Text>
-            <Text style={estilos.botaoTexto}>Vendas</Text>
-          </TouchableOpacity>
 
-        </View>
+</View>
       </View>
 
     </ScrollView>

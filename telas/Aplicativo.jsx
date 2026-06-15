@@ -4,7 +4,6 @@ import Splash from './Splash';
 import Inicio from './Inicio';
 import Produtos from './Produtos';
 import Estoque from './Estoque';
-import Vendas from './Vendas';
 
 const Pilha = createNativeStackNavigator();
 
@@ -16,7 +15,6 @@ export default function Aplicativo() {
         <Pilha.Screen name="Inicio" component={Inicio} />
         <Pilha.Screen name="Produtos" component={Produtos} />
         <Pilha.Screen name="Estoque" component={Estoque} />
-        <Pilha.Screen name="Vendas" component={Vendas} />
       </Pilha.Navigator>
     </NavigationContainer>
   );
