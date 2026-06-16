@@ -5,19 +5,14 @@ const Produto = require('../models/Produto');
 function lerEntrada(corpo) {
   return {
     // Campos de controle/estoque (admin)
-    nome: corpo.nome,
-    preco: corpo.preco,
-    quantidade: corpo.quantidade,
-    estoque_minimo: corpo.estoque_minimo,
-    categoria: corpo.categoria,
-    descricao: corpo.descricao,
+    name: corpo.name,
+    price: corpo.price,
+    category: corpo.category,
+    description: corpo.description,
     // Campos da vitrine (consumidos pelo site)
     image: corpo.image,
     originalPrice: corpo.originalPrice,
     isPromo: corpo.isPromo,
-
-    freeShipping: corpo.freeShipping,
-    affiliateLink: corpo.affiliateLink,
   };
 }
 
