@@ -3,45 +3,40 @@
   import { WebView } from 'react-native-webview';
   import { listarProdutos } from '../servicos/produtoServico';
 
-  const URL_CADASTRO = 'http://192.168.0.96:5174/admin/produtos/novo';
+  const URL_CADASTRO = 'http://192.168.1.6:5173/admin/produtos/novo';
 
   export default function Produtos({ navigation }) {
     const [produtos, setProdutos] = useState([]);
     const [showWebView, setShowWebView] = useState(false);
     const [loadingWeb, setLoadingWeb] = useState(true);
 
-    // Função isolada para carregar os produtos do banco
     const carregarProdutos = () => {
       listarProdutos()
         .then(setProdutos)
         .catch((err) => console.log("Erro ao buscar produtos:", err));
     };
 
-    // Carrega ao abrir a tela pela primeira vez
     useEffect(() => {
       carregarProdutos();
     }, []);
 
-    // Função para fechar o cadastro e atualizar a lista de produtos na hora
     const fecharCadastro = () => {
       setShowWebView(false);
-      carregarProdutos(); // Atualiza a lista para mostrar o produto que acabou de ser criado
+      carregarProdutos();
     };
 
     // Se o usuário clicou no "+", renderiza a WebView ocupando a tela inteira
     if (showWebView) {
       return (
         <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-          {/* Header nativo para a WebView com a identidade verde do seu app */}
           <View style={[styles.header, { paddingTop: 55 }]}>
             <TouchableOpacity onPress={fecharCadastro}>
               <Text style={{ color: '#FFF', fontSize: 16, fontWeight: 'bold' }}>✕ Fechar</Text>
             </TouchableOpacity>
             <Text style={{ color: '#FFF', fontSize: 18, fontWeight: 'bold' }}>Cadastrar Produto</Text>
-            <View style={{ width: 60 }} /> {/* Alinhamento do flexbox */}
+            <View style={{ width: 60 }} />
           </View>
 
-          {/* Indicador de carregamento enquanto o site abre */}
           {loadingWeb && (
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="large" color="#2E8B4A" />
@@ -61,11 +56,8 @@
       );
     }
 
-    // Tela padrão: Lista de Produtos
     return (
       <View style={{ flex: 1, backgroundColor: '#F0F7F2' }}>
-
-        {/* Header da Listagem */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={{ color: '#FFF', fontSize: 15 }}>← Voltar</Text>
@@ -93,7 +85,6 @@
           ))}
         </ScrollView>
 
-        {/* Botão de "+" Flutuante - Agora abre a WebView interna */}
         <TouchableOpacity
           onPress={() => setShowWebView(true)}
           style={styles.fab}

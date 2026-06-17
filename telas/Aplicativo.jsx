@@ -10,7 +10,7 @@ const Pilha = createNativeStackNavigator();
 export default function Aplicativo() {
   return (
     <NavigationContainer>
-      <Pilha.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash">
+      <Pilha.Navigator screenOptions={{ headerShown: false }} initialRouteName="Inicio">
         <Pilha.Screen name="Splash" component={Splash} />
         <Pilha.Screen name="Inicio" component={Inicio} />
         <Pilha.Screen name="Produtos" component={Produtos} />

@@ -4,12 +4,10 @@ const Produto = require('../models/Produto');
 // que o cliente envie (evita mass assignment).
 function lerEntrada(corpo) {
   return {
-    // Campos de controle/estoque (admin)
     name: corpo.name,
     price: corpo.price,
     category: corpo.category,
     description: corpo.description,
-    // Campos da vitrine (consumidos pelo site)
     image: corpo.image,
     originalPrice: corpo.originalPrice,
     isPromo: corpo.isPromo,
