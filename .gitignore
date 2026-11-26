@@ -31,7 +31,12 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+# ATENCAO: `.env*.local` sozinho NAO cobre o arquivo `.env`.
+# As duas linhas abaixo garantem que nenhuma credencial real seja versionada,
+# mantendo os modelos `.env.example` rastreados.
+.env
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo

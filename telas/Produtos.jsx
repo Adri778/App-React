@@ -3,7 +3,9 @@
   import { WebView } from 'react-native-webview';
   import { listarProdutos } from '../servicos/produtoServico';
 
-  const URL_CADASTRO = 'http://192.168.1.6:5173/admin/produtos/novo';
+  // Endereço da página de cadastro, lido de variável de ambiente (ver .env.example).
+  const URL_CADASTRO =
+    process.env.EXPO_PUBLIC_ADMIN_URL || 'http://10.0.2.2:5173/admin/produtos/novo';
 
   export default function Produtos({ navigation }) {
     const [produtos, setProdutos] = useState([]);

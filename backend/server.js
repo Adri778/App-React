@@ -1,3 +1,6 @@
+// Carrega as variáveis do arquivo .env antes de qualquer módulo que as use.
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const Produto = require('./models/Produto');
@@ -24,7 +27,7 @@ app.get('/resumo', (req, res) => {
   });
 });
 
-const PORTA = 3000;
+const PORTA = Number(process.env.PORT) || 3000;
 app.listen(PORTA, () => {
   console.log(`Servidor rodando na porta ${PORTA}`);
 });
